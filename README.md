@@ -7,6 +7,11 @@ requesting, and then at runtime, it will hook it altogether. It's a kind of depe
 just declares, I'm going to need a resource, but it doesn't need to know where it comes from; it will just
 rely on being given one before it's time to execute.
 
+# Notes
+- pytest --fixtures, lists all the available fixtures, default ones and the one that are in your package
+- pytest --markers, lists all the markers
+- pytest-html plugin, gives you html pytest report
+
 ## Use case 1
 sns triggers lambda. Sns messgae which is read in  lambda has the s3 location with lambda and lambda saves the s3 location into dynamo db table
 
