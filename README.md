@@ -20,11 +20,31 @@ and [tests](\tests)
 
 # Notes
 - pytest --fixtures, lists all the available fixtures, default ones and the one that are in your package
+  In one of our examples we use default fixture **tmpdir**
+  <pre>
+  tmpdir
+    Return a temporary directory path object which is unique to each test
+    function invocation, created as a sub directory of the base temporary
+    directory.
+
+    By default, a new base temporary directory is created each test session,
+    and old bases are removed after 3 sessions, to aid in debugging. If
+    ``--basetemp`` is used then it is cleared each session. See :ref:`base
+    temporary directory`.
+  </pre>
 - pytest --markers, lists all the markers
 - pytest-html plugin, gives you html pytest report
 
 ## Setup code
-python setup.py install
+- virtualenv venv
+- venv\Scripts\activate
+- pip install -r requirements.txt  
+- setup.py install
+- pytest --fixtures src
+### run tests
+- setup.py develop
+- pytest tests or pytest 
+
 
 ## magic of conftest.py
 conftest.py, contains our test fixtures for example addressbook is a test fixture. This module has a special
@@ -49,5 +69,13 @@ lambda to check the batch job status, with 3 retry attempt with 10 second backof
 It's like use case 1, except that the S3 needs a cross account bucket access and s3 metadata has cehcksum value which needs to read and stored into dynamo db
 
 
-
+### Notes
+<pre>
+  install virtualenv
+  Virtual env --> https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/26/python-virtual-env/
+  py -m pip install virtualenv / python -m pip install virtualenv
+  create virtual env and activate
+  virtualenv venv
+  venv\Scripts\activate
+</pre>
 

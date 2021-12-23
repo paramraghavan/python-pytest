@@ -2,6 +2,7 @@
 
 from setuptools import setup, find_packages
 
+
 setup(
     name='aws and pytest',
     version='0.1.0',
@@ -13,5 +14,5 @@ setup(
     author='Param Raghavan',
     author_email='',
     license='mit',
-    install_requires=['pytest']
+    #install_requires=['pytest']
 )

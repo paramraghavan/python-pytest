@@ -16,7 +16,3 @@ class Addressbook:
 
     def names(self):
         return set(self.addressbook.keys())
-
-    def clear(self):
-        self.cache.close()
-        os.remove(self.filename)
