@@ -1,6 +1,5 @@
---------------------------
-        python-pytest
---------------------------
+python-pytest
+---------------------------------------------------------------
 
 python aws unit testing  - pytest, mock, moto, botocore.stub. We will be focussing on pytest
 When using Pytest the test case will indicate that it needs some kind of resource or test fixture
