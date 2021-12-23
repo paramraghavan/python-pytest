@@ -1,4 +1,7 @@
-# python-pytest
+--------------------------
+        python-pytest
+--------------------------
+
 python aws unit testing  - pytest, mock, moto, botocore.stub. We will be focussing on pytest
 When using Pytest the test case will indicate that it needs some kind of resource or test fixture
 by specifying arguments to the test function. Pytest will then go and look for a function decorated
@@ -7,10 +10,22 @@ requesting, and then at runtime, it will hook it altogether. It's a kind of depe
 just declares, I'm going to need a resource, but it doesn't need to know where it comes from; it will just
 rely on being given one before it's time to execute.
 
+Let's write a test fixture in this example code. I'm going to extract a method that will return the 
+addressbook, and then I can add it as an argument in the test method instead of constructing it directly.
+If we decorate the new function with the pytest.fixture decorator, then pytest will connect them together 
+at runtime. We can use the same fixture in the other two test cases as well. Now when I run all the
+test cases, they all still passed. This fixture mechanism does rely on you not making a typo when you 
+write the name of the resource. If there is a type Pytest will give a clear error message that it can't
+find the fixture for the resource addressbook. It will list all the fixtures that are available, there are
+quite a lot of fixtures on the list even though we've only defined one addresbook typo. [See](\src_test)
+
 # Notes
 - pytest --fixtures, lists all the available fixtures, default ones and the one that are in your package
 - pytest --markers, lists all the markers
 - pytest-html plugin, gives you html pytest report
+
+## Setup code
+python setup.py install
 
 ## Use case 1
 sns triggers lambda. Sns messgae which is read in  lambda has the s3 location with lambda and lambda saves the s3 location into dynamo db table
