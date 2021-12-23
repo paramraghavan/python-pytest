@@ -9,10 +9,12 @@ Commented out here as it is used from conftest.py
 '''
 # @pytest.fixture
 # def addressbook(tmpdir):
-#     "Provides an empty Phonebook"
+#     "Provides an empty Addressbook"
 #     return Addressbook(tmpdir)
 
-
+'''
+Resource address book injected
+'''
 def test_lookup_by_name(addressbook):
     addressbook.add("Duncan", "1234 Cape Cod MA")
     assert "1234 Cape Cod MA" == addressbook.lookup("Duncan")

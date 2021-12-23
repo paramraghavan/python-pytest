@@ -1,7 +1,6 @@
 python-pytest
 ---------------------------------------------------------------
-
-python aws unit testing  - pytest, mock, moto, botocore.stub. We will be focussing on pytest
+Python unit testing using - pytest, mock, moto, botocore.stub. 
 When using Pytest the test case will indicate that it needs some kind of resource or test fixture
 by specifying arguments to the test function. Pytest will then go and look for a function decorated
 with this **pytest.fixture decorator**, and it should have the same name as the resource the test is
