@@ -1,0 +1,86 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: pp-aws
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+frameworkVersion: '2'
+
+plugins:
+  - serverless-python-requirements
+
+
+custom:
+  tableName: 'producer-interface-table-${self:provider.stage}'
+  pythonRequirements:
+    dockerizePip: non-linux
+
+# you can add packaging information here
+package:
+  patterns:
+    - '!venv/**'
+    - '!node_modules/**'
+    - 'sns_trigger_lambda/**'
+    - 'utils/**'
+    - 'requirements.txt'
+    - '!.serverless/**'
+
+ # we create a new SNS topic with the name dispatch which is bound to the snsdispatch function.
+ # The function will be called every time a message is sent to the dispatch topic.
+functions:
+  snsdispatch:
+    handler: sns_trigger_lambda/lambda_function.lambda_handler
+    events:
+      - sns: dispatch
+
+provider:
+  name: aws
+  runtime: python3.8
+  lambdaHashingVersion: 20201221
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - { "Fn::GetAtt": ["ProducerInterfaceTable", "Arn" ] }
+  environment:
+    PRODUCER_INTERFACE_TABLE: ${self:custom.tableName}
+
+resources:
+  Resources:
+    ProducerInterfaceTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: producer_datasource
+            AttributeType: S
+          - AttributeName: partition_key
+            AttributeType: S
+        KeySchema:
+          - AttributeName: producer_datasource
+            KeyType: HASH
+          - AttributeName: partition_key
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.tableName}
