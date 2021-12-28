@@ -26,6 +26,7 @@ plugins:
 
 custom:
   tableName: 'producer-interface-table-${self:provider.stage}'
+  bucket: 'sample987'
   pythonRequirements:
     dockerizePip: non-linux
 
@@ -62,6 +63,13 @@ provider:
         - dynamodb:DeleteItem
       Resource:
         - { "Fn::GetAtt": ["ProducerInterfaceTable", "Arn" ] }
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+        - s3:GetObjectAcl
+        - s3:HeadObject
+      Resource: "arn:aws:s3:::${self:custom.bucket}/*"
+
   environment:
     PRODUCER_INTERFACE_TABLE: ${self:custom.tableName}
 
