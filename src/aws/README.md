@@ -1,3 +1,6 @@
+- [Serverless install guide](https://www.serverless.com/framework/docs/getting-started)
+- [Serveless Hello World](https://www.serverless.com/framework/docs/providers/aws/examples/hello-world/python)
+
 <pre>
 npm install -g serverless
 serverless create --template aws-python3 --name aws --path aws
