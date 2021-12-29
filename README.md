@@ -1,7 +1,7 @@
 python-pytest
 ---------------------------------------------------------------
 Python unit testing using - pytest, mock, moto, botocore.stub. 
-When using Pytest the test case will indicate that it needs some kind of resource or test fixture
+When using pytest the test case will indicate that it needs some kind of resource or test fixture
 by specifying arguments to the test function. Pytest will then go and look for a function decorated
 with this **pytest.fixture decorator**, and it should have the same name as the resource the test is
 requesting, and then at runtime, it will hook it altogether. It's a kind of dependency injection. The test 
