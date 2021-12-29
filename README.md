@@ -59,7 +59,7 @@ defining fixtures in the root conftest.py might slow down testing if such fixtur
 
 ## Use case 1
 SNS triggers the lambda, this event is parsed by the aws lambda handler.
-The message has s3 location shared by the producer. The s3 object metadata has the record count,
+This message has s3 location shared by the producer. The s3 object metadata has the record count,
 [sns event](src/aws/lambda_events_data/sns_lambda.json). The lambda updates the dynamodb with the s3 object location
 ,the record count and more into  dynamodb.
 
