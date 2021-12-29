@@ -24,6 +24,7 @@ plugin.
 - Also attach [this policy](src/aws/sns_lambda_trigger_policy.json) file to your aws cli account, modify as need be.
   > ! Note: the permissions granted here are generous as this just throw away code, go with least restricted  permissions first and 
   > add permissions to policy as needed.
-  
+ 
+ - Also note the requirement.txt is empty as we are uisng boto3 library and it is abailable by default.
 
 [Also see](https://www.serverless.com/framework/docs/providers/aws/events/sns)
