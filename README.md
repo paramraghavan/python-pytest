@@ -64,7 +64,7 @@ The message has s3 location shared by the producer. The s3 object metadata has t
 [sns event](src/aws/lambda_events_data/sns_lambda.json). The lambda updates the dynamodb with the s3 object location
 ,the record count and more into  dynamodb.
 
-The working copy of the source code using serverless framework, src/aws,  which create sns topic 'dispatch*', creates a 
+The [working copy](src/aws/README.md) of the source code using serverless framework, which create sns topic 'dispatch*', creates a 
 lambda and associates the sns topic with the aws lambda. This lambda is triggered by SNS. You need to attach this 
 policy file to your aws cli user account
 
