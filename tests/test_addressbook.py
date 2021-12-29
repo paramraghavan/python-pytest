@@ -2,15 +2,6 @@ import pytest
 
 from addressbook import Addressbook
 
-'''
-We have not defined the fixture here on purpose and not inside conftest.py
-So this can be an simple independent example.
-Commented out here as it is used from conftest.py
-'''
-# @pytest.fixture
-# def addressbook(tmpdir):
-#     "Provides an empty Addressbook"
-#     return Addressbook(tmpdir)
 
 '''
 Resource address book injected
@@ -56,3 +47,14 @@ This marker "slow" is defined in pytest.ini
 @pytest.mark.slow
 def test_large_file(addressbook):
     pass
+
+
+'''
+We have not defined the fixture here on purpose and not inside conftest.py
+So this can be an simple independent example.
+Commented out here as it is used from conftest.py
+'''
+# @pytest.fixture
+# def addressbook(tmpdir):
+#     "Provides an empty Addressbook"
+#     return Addressbook(tmpdir)
