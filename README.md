@@ -46,7 +46,7 @@ and [tests](/tests)
 
 
 ## magic of conftest.py
-conftest.py, contains our test fixtures for example addressbook is a test fixture. This module has a special
+conftest.py, contains our test fixtures for example, addressbook is a test fixture. This module has a special
 meaning for pytest. By defining conftest.py in your root path, you will have pytest recognizing your 
 application modules without specifying PYTHONPATH. Any fixtures you put here in conftest will be available
 to all the test modules in this folder and subfolders, in our case everything under folder tests. Another 
