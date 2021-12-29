@@ -2,9 +2,9 @@
 
 import pytest
 
-import sys
-# This is needed so Python can find test_tools on the path.
-sys.path.append('../..')
+# import sys
+# # This is needed so Python can find test_tools on the path.
+# sys.path.append('../..')
 
 from addressbook import Addressbook
 

@@ -59,7 +59,16 @@ defining fixtures in the root conftest.py might slow down testing if such fixtur
 [see](https://stackoverflow.com/questions/34466027/in-pytest-what-is-the-use-of-conftest-py-files)
 
 ## Use case 1
-sns triggers lambda. Sns messgae which is read in  lambda has the s3 location with lambda and lambda saves the s3 location into dynamo db table
+SNS triggers the lambda. Sns event/message which is parsed by the aws lambda handler.
+The message has s3 location share by the producer. The s3 object metadata has the record count,
+[sns event](src/aws/lambda_events_data/sns_lambda.json). The lambda updates the dynamodb with the s3 object location
+,the record count and more into  dynamodb.
+
+The working copy of the source code using serverless framework, src/aws,  which create sns topic 'dispatch*', creates a 
+lambda and associates the sns topic with the aws lambda. This lambda is triggered by SNS. You need to attach this 
+policy file to your aws cli user account
+
+conftest.py has all the fixtures defined which are used by this use case.
 
 ## Use Case 2
 lambda to check the batch job status, with 3 retry attempt with 10 second backoff interval.

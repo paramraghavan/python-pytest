@@ -1,12 +1,11 @@
 <pre>
 npm install -g serverless
-serverless create --template aws-python3 --name numpy-test --path numpy-test
+serverless create --template aws-python3 --name aws --path aws
 
 cd aws
 virtualenv venv --python=python3
 venv\Scripts\activate
 
-(venv) pip install numpy
 (venv) pip freeze > requirements.txt
 (venv) type requirements.txt
 
@@ -20,7 +19,10 @@ plugin.
 (venv) $ serverless deploy # sls print, serverless deploy -v --stage dev
 #serverless package -v --stage dev ****
 ~~~~~~~~
-(venv) serverless invoke -f numpy --log
-
 </pre>
+- Also attach [this policy](src/aws/sns_lambda_trigger_policy.json) file to your aws cli account, modify as need be.
+  > ! Note: the permissions granted here are generous as this just throw away code, go with least restricted  permissions first and 
+  > add permissions to policy as needed.
+  
+
 [Also see](https://www.serverless.com/framework/docs/providers/aws/events/sns)
