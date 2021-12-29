@@ -14,6 +14,7 @@ package.json file for saving your node dependencies. Accept the defaults, then i
 plugin.
 
 (venv) npm init # creates package.json
+# update serverless.yml as needed, this one works for me
 
 # lambda deployed 
 (venv) $ serverless deploy # sls print, serverless deploy -v --stage dev
