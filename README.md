@@ -1,6 +1,6 @@
 python-pytest
 ---------------------------------------------------------------
-Python unit testing using - pytest, moto - mock_s3,mock_dynamodb etc.., botocore.stub. 
+Python unit testing using - pytest, moto - mock_s3,mock_dynamodb etc, botocore.stub. 
 When using pytest the test case will indicate that it needs some kind of resource or test fixture
 by specifying arguments to the test function. Pytest will then go and look for a function decorated
 with this **pytest.fixture decorator**, and it should have the same name as the resource the test is
@@ -54,6 +54,7 @@ defining fixtures in the root conftest.py might slow down testing if such fixtur
 [see](https://stackoverflow.com/questions/34466027/in-pytest-what-is-the-use-of-conftest-py-files)
 
 ## Use case 1
+- In this test case we use pytest, moto - mock_s3,mock_dynamodb 
 SNS triggers the lambda, this [sns event](src/aws/lambda_events_data/sns_lambda.json) is parsed by the aws lambda handler.
 This message has s3 location shared by the producer. The s3 object metadata has the record count. The lambda updates the dynamodb with the s3 object location
 ,the record count and more into  dynamodb.
@@ -70,6 +71,7 @@ In our py tests we check out the following in our code:
 - dynamodb update
 
 ## Use Case 2
+- here will be using pytest, botocore.stub
 lambda to check the batch job status, with 3 retry attempt with 10 second backoff interval.
 
 
