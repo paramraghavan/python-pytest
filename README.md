@@ -65,7 +65,7 @@ policy file to your aws cli user account
 
 conftest.py has all the fixtures defined which are used by this use case.
 In our py tests we check out the following in our code:
-- s3 file read
+- s3 object read
 - s3 record count
 - s3 metadata read the recored count set by producers
 - dynamodb update
