@@ -77,6 +77,41 @@ def create_dynamo_db_table():
     return _create_dynamo_db_table
 
 
+from moto import mock_s3, mock_batch
+
+@pytest.fixture
+def s3():
+    """Pytest fixture to be used to perfom s3 action onto
+     fake moto AWS account
+
+    Yields a fake boto3 batch client
+    """
+    with mock_s3():
+        s3 = boto3.client("s3")
+        yield s3
+
+
+@pytest.fixture
+def batch():
+    """Pytest fixture to be used to perform batch action onto
+     fake moto AWS account
+
+    Yields a fake boto3 batch client
+    """
+    with mock_batch():
+        batch = boto3.client("batch")
+        yield batch
+
+from botocore.stub import Stubber
+@pytest.fixture()
+def batch_stub_(batch):
+    boto3.setup_default_session(region_name="us-east-1")
+    # batch_client = boto3.client('batch')
+    with Stubber(batch) as stubber:
+        yield stubber
+        stubber.assert_no_pending_responses()
+
+
 @pytest.fixture()
 def create_s3_bucket():
     ''' Creates s3 bucket.'''

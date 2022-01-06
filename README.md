@@ -88,4 +88,4 @@ It's like use case 1, except that the S3 needs a cross account bucket access and
   virtualenv venv
   venv\Scripts\activate
 </pre>
-
+- https://www.sanjaysiddhanti.com/2020/04/08/s3testing/
