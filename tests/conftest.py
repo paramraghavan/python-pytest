@@ -76,6 +76,7 @@ def create_dynamo_db_table():
 
     return _create_dynamo_db_table
 
+
 @pytest.fixture()
 def create_s3_bucket():
     ''' Creates s3 bucket.'''
