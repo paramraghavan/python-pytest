@@ -1,6 +1,6 @@
 python-pytest
 ---------------------------------------------------------------
-Python unit testing using - pytest, mock, moto, botocore.stub. 
+Python unit testing using - pytest, moto - mock_s3,mock_dynamodb etc, botocore.stub. 
 When using pytest the test case will indicate that it needs some kind of resource or test fixture
 by specifying arguments to the test function. Pytest will then go and look for a function decorated
 with this **pytest.fixture decorator**, and it should have the same name as the resource the test is
@@ -8,10 +8,8 @@ requesting, and then at runtime, it will hook it altogether. It's a kind of depe
 just declares, I'm going to need a resource, but it doesn't need to know where it comes from; it will just
 rely on being given one before it's time to execute.
 
-Lets write test fixture addressbook, [see](tests/conftest.py). We are going to extract a method that will return 
-Addressbook, and then we  add it as an argument in the [test method](tests/test_addressbook.py) instead of constructing it directly - by 
-this I mean  Addressbook(tmpdir). Next we decorate this new addressbook function with the pytest.fixture decorator, then pytest will connect addressbook function and test method with addressbook argument together  at runtime. We can use the same fixture in the other test cases as well. This fixture mechanism does rely on you not making a typo when you write the name of the resource. If there is a typo Pytest will give a clear error message that it can't
-find the fixture for the resource addressbook. It will list all the fixtures that are available, there are
+Lets write test fixture addressbook, [see](tests/conftest.py). We are going to extract this method add it as an argument in the [test method](tests/test_addressbook.py)
+and it will return Addressbook, instead of constructing it directly - by this I mean  Addressbook(tmpdir). Next we decorate this new addressbook function with the pytest.fixture decorator, then pytest will connect addressbook function and test method with addressbook argument together  at runtime. We can use the same fixture in the other test cases as well. This fixture mechanism does rely on you not making a typo when you write the name of the resource. If there is a typo Pytest will give a clear error message that it can't find the fixture for the resource addressbook. It will list all the fixtures that are available, there are
 quite a lot of fixtures on the list even though we've only defined one addresbook typo. See [src](/src) 
 and [tests](/tests)
 
@@ -56,6 +54,7 @@ defining fixtures in the root conftest.py might slow down testing if such fixtur
 [see](https://stackoverflow.com/questions/34466027/in-pytest-what-is-the-use-of-conftest-py-files)
 
 ## Use case 1
+- In this test case we use pytest, moto - mock_s3,mock_dynamodb 
 SNS triggers the lambda, this [sns event](src/aws/lambda_events_data/sns_lambda.json) is parsed by the aws lambda handler.
 This message has s3 location shared by the producer. The s3 object metadata has the record count. The lambda updates the dynamodb with the s3 object location
 ,the record count and more into  dynamodb.
@@ -66,12 +65,13 @@ policy file to your aws cli user account
 
 conftest.py has all the fixtures defined which are used by this use case.
 In our py tests we check out the following in our code:
-- s3 file read
+- s3 object read
 - s3 record count
 - s3 metadata read the recored count set by producers
 - dynamodb update
 
 ## Use Case 2
+- here will be using pytest, botocore.stub
 lambda to check the batch job status, with 3 retry attempt with 10 second backoff interval.
 
 
