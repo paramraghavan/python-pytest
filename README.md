@@ -72,7 +72,12 @@ In our py tests we check out the following in our code:
 - dynamodb update
 
 ## Use Case 2
-lambda to check the batch job status, with 3 retry attempt with 10 second backoff interval.
+lambda to check the batch job status, with 3 retry attempts with 10 second backoff interval. In the first two attempts
+boto3 batch job describe api throw exceptions and finally it succeeds in the last and the final attempt. For this use case
+we will be using botocore.stub.Stubber.  Note in the case of stubber the boto3 batch client handle is shared b/w the 
+tested module and the testing module. Also the fixture is not defined in conftest.py as this is one off and written directly
+in with the [test module](tests/test_check_batchjob_status.py)
+- [Stubber, see client error](https://botocore.amazonaws.com/v1/documentation/api/latest/reference/stubber.html)
 
 
 ## Use Case 3

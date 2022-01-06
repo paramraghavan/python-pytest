@@ -2,6 +2,12 @@ import time
 import botocore
 import boto3
 
+retry_exception_list = ["Throttling", "ThrottlingException", "ThrottledException", "RequestThrottledException",
+                    "TooManyRequestsException",
+                    "TransactionInProgressException", "RequestLimitExceeded",
+                    "BandwidthLimitExceeded", "LimitExceededException", "RequestThrottled", "SlowDown",
+                    "EC2ThrottledException"]
+
 
 
 def update_dynamodb_item(dynamo_table,item_key,expr,expr_attr_values):
@@ -58,6 +64,25 @@ def read_s3_object_metadata(bucket_name, key, metadata_key='record-count'):
     value = s3Object.metadata[metadata_key]
 
     return value
+
+
+
+def describe_batch_jobs(batch_client, jobid, retries=3, backoff=10):
+    response = None
+    for attempt in range(retries):
+        try:
+            response = batch_client.describe_jobs(jobs=[jobid])
+            break
+        except botocore.exceptions.ClientError as error:
+            print(f'retry number: {attempt}')
+            if error.response['Error']['Code'] in retry_exception_list:
+                print('API call error; backing off and retrying...')
+                time.sleep(backoff)
+                pass
+            else:
+                raise error
+
+    return response
 
 
 if __name__ == '__main__':
