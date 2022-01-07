@@ -53,7 +53,7 @@ The fixtures that you will define in conftest.py will be shared among all tests 
 defining fixtures in the root conftest.py might slow down testing if such fixtures are not used by all tests.
 [see](https://stackoverflow.com/questions/34466027/in-pytest-what-is-the-use-of-conftest-py-files)
 
-## Use case 1
+## Use case 1, moto
 - In this test case we use pytest, moto - mock_s3,mock_dynamodb 
 SNS triggers the lambda, this [sns event](src/aws/lambda_events_data/sns_lambda.json) is parsed by the aws lambda handler.
 This message has s3 location shared by the producer. The s3 object metadata has the record count. The lambda updates the dynamodb with the s3 object location
@@ -70,7 +70,7 @@ In our py tests we check out the following in our code:
 - s3 metadata read the recored count set by producers
 - dynamodb update
 
-## Use Case 2
+## Use Case 2, botocore.stub
 - here will be using pytest, botocore.stub
 lambda to check the batch job status, with 3 retry attempts with 10 second backoff interval. In the first two attempts
 boto3 batch job describe api throw exceptions and finally it succeeds in the last and the final attempt. For this use case
@@ -90,11 +90,7 @@ this is only option I know as of now how to implement.
   the test would fail because it depends on a specific API being called. This creates an unnecessary dependency on t
   he private API of the module, instead of testing the public API.
 
-
-## Use Case 3
-It's like use case 1, except that the S3 needs a cross account bucket access and s3 metadata has cehcksum value which needs to read and stored into dynamo db
-
-
+  
 ## localstack
 A third option is localstack, which allows you to bring up an entire AWS cloud stack locally.
 
