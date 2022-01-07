@@ -79,10 +79,24 @@ tested module and the testing module. Also the fixture is not defined in conftes
 with the [test module](tests/test_check_batchjob_status.py)
 - [Stubber, see client error](https://botocore.amazonaws.com/v1/documentation/api/latest/reference/stubber.html)
 
+### Cons with using botocore stub
+- They require a lot more prep. Creating stubs is time-consuming. 
+- They’re fragile and fake. Responses are returned first in, first out - so if you call the  APIs in a different order
+  than you added the responses, it will throw an error. 
+- To make the stubs look somewhat realistic, you have to mock many fields that your code doesn’t care about and bloat 
+  your tests with fake responses.
+- They leak implementation details from the module being tested. For example, if a module switched from using s3.list_objects to s3.list_objects_v2, 
+  the test would fail because it depends on a specific API being called. This creates an unnecessary dependency on t
+  he private API of the module, instead of testing the public API.
 
 
 ## Use Case 3
 It's like use case 1, except that the S3 needs a cross account bucket access and s3 metadata has cehcksum value which needs to read and stored into dynamo db
+
+
+## localstack
+A third option is localstack, which allows you to bring up an entire AWS cloud stack locally.
+
 
 
 ### Notes
@@ -94,4 +108,4 @@ It's like use case 1, except that the S3 needs a cross account bucket access and
   virtualenv venv
   venv\Scripts\activate
 </pre>
-- https://www.sanjaysiddhanti.com/2020/04/08/s3testing/
+- [3 ways to test S3 in Python](https://www.sanjaysiddhanti.com/2020/04/08/s3testing/)
