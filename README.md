@@ -76,7 +76,8 @@ lambda to check the batch job status, with 3 retry attempts with 10 second backo
 boto3 batch job describe api throw exceptions and finally it succeeds in the last and the final attempt. For this use case
 we will be using botocore.stub.Stubber.  Note in the case of stubber the boto3 batch client handle is shared b/w the 
 tested module and the testing module. Also the fixture is not defined in conftest.py as this is one off and written directly
-with the [test module](tests/test_check_batchjob_status.py)
+with the [test module](tests/test_check_batchjob_status.py). In this use case i think botocore.stub is the only option and 
+this is only option I know as of now how to implement.
 - [Stubber, see client error](https://botocore.amazonaws.com/v1/documentation/api/latest/reference/stubber.html)
 
 ### Cons with using botocore stub

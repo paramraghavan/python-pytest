@@ -3,12 +3,14 @@ import boto3
 import os
 import ast
 import os
+
 if "PYTEST_CURRENT_TEST" in os.environ:
 # We are running under pytest, act accordingly...
     from aws.utils import boto3_utils
 else:
     # this is for the serverless deploy to work, serverless.yml has to be in asw and cannot be src folder with the current setup
     from utils import boto3_utils
+
 
 def lambda_handler(event, context):
     print('Incoming sns request {0}'.format(repr(event)))
