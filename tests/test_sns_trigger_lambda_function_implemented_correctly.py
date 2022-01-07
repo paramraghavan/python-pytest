@@ -12,9 +12,7 @@ os.environ["PYTEST_CURRENT_TEST"] = 'yes'
 from aws.sns_trigger_lambda import lambda_function
 
 
-@mock_dynamodb2
-@mock_s3
-def test_sns_trigger_lambda(set_envvars, s3, create_dynamo_db_table, read_item_from_dynamodb):
+def test_sns_trigger_lambda(set_envvars, s3, dynamodb):
 
     required_envvars = ['PRODUCER_INTERFACE_TABLE', 'LifecycleEnv']
     envvar_overrides = {}
@@ -56,7 +54,16 @@ def test_sns_trigger_lambda(set_envvars, s3, create_dynamo_db_table, read_item_f
     attribute_definations.append({'AttributeName': 'producer_datasource', 'AttributeType': 'S'})
     attribute_definations.append({'AttributeName': 'partition_key', 'AttributeType': 'S'})
 
-    create_dynamo_db_table(os.environ['PRODUCER_INTERFACE_TABLE'], key_schema, attribute_definations)
+    result = dynamodb.create_table(
+        TableName=os.environ['PRODUCER_INTERFACE_TABLE'],
+        KeySchema=key_schema,
+        AttributeDefinitions=attribute_definations,
+        ProvisionedThroughput={
+            'ReadCapacityUnits': 1,
+            'WriteCapacityUnits': 1
+        }
+    )
+
 
     input_event = {'Records': [{'EventSource': 'aws:sns', 'EventVersion': '1.0', 'EventSubscriptionArn': 'arn:aws:sns:us-east-1:687162148361:dispatch:3c1c7634-edb6-43e2-9b09-02e781a1148b', 'Sns': {'Type': 'Notification', 'MessageId': '07826c52-ed6c-5f38-a87c-3616966df04a', 'TopicArn': 'arn:aws:sns:us-east-1:687162148361:dispatch', 'Subject': 'AnnualSurveryDatasource File update.', 'Message': 'Updated AnnualSurvery data source file.', 'Timestamp': '2021-12-28T02:38:57.644Z', 'SignatureVersion': '1', 'Signature': 'gRhDfpman0zibBR4B7VKgef7mAN7L4KaC8hYXkOfs5knRmmQ+q5YIt7Z5nGFKqxZiR1RWFujioABD478ogq0zfUmJxkhVO+KtJSQvuM7+Sg82fd4q1t9pAf/zuBwqwSPKg0wABjWaI5LSjYV/A+tq/HEQ2eoZLTCQfgBWCkxQKprrqyxiHiHdE2wzPnjFnwY/a4uRYSFnO6X0p3hablKX+5XO8uqtyHD6I6OmaAd3mf9ppSGnETJO/1NSRykQBi4MWrxlKVBgB6UrHhYM0zpCpb6yFS9iVEDMKR6Ow/hjLRYP0Lg9N+kWRkxDXMTdQ0LOwqc7UnyvfFDnw8lUUFKAg==', 'SigningCertUrl': 'https://sns.us-east-1.amazonaws.com/SimpleNotificationService-7ff5318490ec183fbaddaa2a969abfda.pem', 'UnsubscribeUrl': 'https://sns.us-east-1.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-east-1:687162148361:dispatch:3c1c7634-edb6-43e2-9b09-02e781a1148b', 'MessageAttributes': {'AnnualSurveryDatasource': {'Type': 'String', 'Value': 'sample987/input/annual-enterprise-survey-2020-financial-year-provisional.csv'}}}}]}
 
@@ -70,6 +77,13 @@ def test_sns_trigger_lambda(set_envvars, s3, create_dynamo_db_table, read_item_f
     key['producer_datasource'] = producer_datasource
     key['partition_key'] = partition_key
 
-    result = read_item_from_dynamodb(os.environ['PRODUCER_INTERFACE_TABLE'], key)
+    source_table = os.environ['PRODUCER_INTERFACE_TABLE']
+    dynamodb_tbl = dynamodb.Table(source_table)
+    response = dynamodb_tbl.get_item(
+        TableName=source_table,
+        Key=key
+    )
+    result = response['Item']
+
     assert result['actual_record_count']== 10
     assert result['datalocation'] == datalocation

@@ -77,7 +77,7 @@ def create_dynamo_db_table():
     return _create_dynamo_db_table
 
 
-from moto import mock_s3, mock_batch
+from moto import mock_s3, mock_batch, mock_dynamodb2
 
 @pytest.fixture
 def s3():
@@ -89,6 +89,18 @@ def s3():
     with mock_s3():
         s3 = boto3.client("s3")
         yield s3
+
+
+@pytest.fixture
+def dynamodb():
+    """Pytest fixture to be used to perform dynamodb action onto
+     fake moto AWS account
+
+    Yields a fake boto3 dynamodb client
+    """
+    with mock_dynamodb2():
+        dynamodb = boto3.resource("dynamodb", region_name='us-east-1')
+        yield dynamodb
 
 
 @pytest.fixture
