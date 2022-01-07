@@ -15,7 +15,7 @@ import docker
 os.environ["PYTEST_CURRENT_TEST"] = 'yes'
 
 from aws.check_batchjob_status import lambda_function
-from aws.check_batchjob_status.lambda_function import batch_client
+from aws.check_batchjob_status.lambda_function import get_batch
 from aws.utils.boto3_utils import retry_exception_list
 
 import copy
@@ -37,7 +37,7 @@ from aws.check_batchjob_status.lambda_function import batch_client
 def batch_stub():
     boto3.setup_default_session(region_name="us-east-1")
     # batch_client = boto3.client('batch')
-    with Stubber(batch_client) as stubber:
+    with Stubber(get_batch()) as stubber:
         yield stubber
         stubber.assert_no_pending_responses()
 
