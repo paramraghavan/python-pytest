@@ -92,7 +92,7 @@ this is only option I know as of now how to implement.
 
   
 ## localstack
-A third option is localstack, which allows you to bring up an entire AWS cloud stack locally.
+A third option is localstack, which allows you to bring up an entire AWS cloud stack locally. To add 
 
 
 
