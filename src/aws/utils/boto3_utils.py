@@ -63,7 +63,7 @@ def read_s3_object_metadata(bucket_name, key, metadata_key='record-count'):
     print(str(s3Object.metadata))
     value = s3Object.metadata[metadata_key]
 
-    return value
+    return int(value)
 
 
 
