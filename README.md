@@ -8,8 +8,7 @@ requesting, and then at runtime, it will hook it altogether. It's a kind of depe
 just declares, I'm going to need a resource, but it doesn't need to know where it comes from; it will just
 rely on being given one before it's time to execute.
 
-Lets write test fixture addressbook, [see](tests/conftest.py). We are going to extract this test fixture addressbook and add it as an argument in the [test method](tests/test_addressbook.py)
-and it will return Addressbook, instead of constructing it directly - by this I mean  Addressbook(tmpdir). Next we decorate this new addressbook function with the pytest.fixture decorator, then pytest will connect addressbook function and test method with addressbook argument together  at runtime. We can use the same fixture in the other test cases as well. This fixture mechanism does rely on you not making a typo when you write the name of the resource. If there is a typo Pytest will give a clear error message that it can't find the fixture for the resource addressbook. It will list all the fixtures that are available, there are
+Lets write test fixture addressbook, [see](tests/conftest.py),h we decorate this new addressbook function with the pytest.fixture decorator, then pytest will connect addressbook function and test method with addressbook argument together  at runtime. We define this test fixture addressbook and pass it as an argument in the [test method](tests/test_addressbook.py) and it will return Addressbook, instead of constructing it directly - by this I mean  Addressbook(tmpdir). This fixture mechanism does rely on you not making a typo when you write the name of the resource. If there is a typo Pytest will give a clear error message that it can't find the fixture for the resource addressbook. It will list all the fixtures that are available, there are
 quite a lot of fixtures on the list even though we've only defined one addresbook typo. See [src](/src) 
 and [tests](/tests)
 
