@@ -13,7 +13,7 @@ quite a lot of fixtures on the list even though we've only defined one addresboo
 and [tests](/tests)
 
 # Notes
-- pytest --fixtures, lists all the available fixtures, default ones and the one that are in your package
+- pytest --fixtures, lists all the available fixtures, default ones and the one that are in your package.
   In one of our examples we use default fixture **tmpdir**
   <pre>
   tmpdir
