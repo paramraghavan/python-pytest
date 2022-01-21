@@ -2,9 +2,9 @@ import readConfigFromS3
 
 
 '''
-This is used when we read want mock reading the some config from s3 or any other service. This config read may
-be happening in some module, all we do here is patch that module, like in this case we are modify retunr value of the
-function - read_app_config_from_s3
+This is used when we read want mock some config as being from s3 or any other service. This config read may
+be happening in some module, all we do here is patch that module, like in this case we are modify return value
+of the function - read_app_config_from_s3
 '''
 def test_lambda_handler(mocker):
 
