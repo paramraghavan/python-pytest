@@ -79,6 +79,10 @@ def create_dynamo_db_table():
 
 from moto import mock_s3, mock_batch, mock_dynamodb2
 
+'''
+with usage --> https://www.geeksforgeeks.org/with-statement-in-python/
+'''
+
 @pytest.fixture
 def s3():
     """Pytest fixture to be used to perfom s3 action onto
