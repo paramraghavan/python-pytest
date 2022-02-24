@@ -7,7 +7,6 @@ be happening in some module, all we do here is patch that module, like in this c
 of the function - read_app_config_from_s3
 '''
 def test_lambda_handler(mocker):
-
     mocker.patch.object(readConfigFromS3, 'read_app_config_from_s3')
 
     config = \

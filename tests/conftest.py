@@ -120,7 +120,7 @@ def batch():
 
 from botocore.stub import Stubber
 @pytest.fixture()
-def batch_stub_(batch):
+def batch_stub(batch):
     boto3.setup_default_session(region_name="us-east-1")
     # batch_client = boto3.client('batch')
     with Stubber(batch) as stubber:
