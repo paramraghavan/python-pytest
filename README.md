@@ -95,8 +95,8 @@ A third option is localstack, which allows you to bring up an entire AWS cloud s
 
 
 ## Unittest spark
-When it comes to unit testing PySpark pipeline code, one good way  is to encapsuleate the critical ETL transforms of a 
-PySpark script inside a method/function. Here the two ways to I have come to konw of to test spark :
+When it comes to unit testing PySpark pipeline code, one good way  is to encapsulate the critical ETL transforms of a 
+PySpark script inside a method/function. I have come to konw of to 2 ways to unittest with spark :
 - Docker to run your PySpark unit tests. The Dockerfile doesn’t need to be rocket science - a little Ubuntu, Java, Python, Spark
 - use pytest-spark
 
