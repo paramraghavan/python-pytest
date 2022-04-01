@@ -106,7 +106,7 @@ Docker to run your PySpark unit tests.
 - [pytest for spark transform](src/bigdata/etl_transform.py)
 - code to test
   - [conftest.py](src/unit_test_pyspark/conftest_docker.py)
-  - [test_etl_transform.py](src/unit_test_pyspark/test_etl_transform.py)
+  - [test_etl_transform.py](src/unit_test_pyspark/tests/test_etl_transform.py)
 - docker commands
   - docker build -t spark-test -f src/unit_test_pyspark/Dockerfile .  
   - docker run -it  spark-test ,t is the docker image tag and i, for interactive session
