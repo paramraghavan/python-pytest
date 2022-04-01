@@ -103,7 +103,7 @@ PySpark script inside a method/function. Here the two ways to I have come to kon
 
 Docker to run your PySpark unit tests.
 -------------------------------------
-- [Piece of spark transform to be tested](src/bigdata/etl_transform.py)
+- [pytest for spark transform](src/bigdata/etl_transform.py)
 - code to test
   - [conftest.py](src/unit_test_pyspark/conftest_docker.py)
   - [test_etl_transform.py](src/unit_test_pyspark/test_etl_transform.py)
