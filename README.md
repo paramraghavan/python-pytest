@@ -96,10 +96,26 @@ A third option is localstack, which allows you to bring up an entire AWS cloud s
 
 ## Unittest spark
 When it comes to unit testing PySpark pipeline code, one good way  is to encapsulate the critical ETL transforms of a 
-PySpark script inside a method/function. I have come to konw of to 2 ways to unittest with spark :
+PySpark script inside a method/function. I have come to know of to 2 ways to unittest with spark :
+- Using pytest-spark, seems ot be the easy once you have [setup spark](https://github.com/paramraghavan/sparksql-awsglue/blob/main/help/sparksql-setup.md)
 - Docker to run your PySpark unit tests. The Dockerfile doesn’t need to be rocket science - a little Ubuntu, Java, Python, Spark
-- use pytest-spark
 
+
+Using pytest-spark
+-----------------------
+- pip install pyspark 
+- pip install pytest-spark
+- Add “spark_home” value to pytest.ini in your project directory:
+<pre>
+For Mac/Unix
+[pytest]
+spark_home = /opt/spark
+
+or 
+For Windows
+[pytest]
+spark_home = C:\Users\padma\spark\spark-sql\tools\spark-3.1.2-bin-hadoop2.7
+</pre>
 
 Docker to run your PySpark unit tests.
 -------------------------------------
@@ -111,12 +127,7 @@ Docker to run your PySpark unit tests.
   - docker build -t spark-test -f src/unit_test_pyspark/Dockerfile .  
   - docker run -it  spark-test ,t is the docker image tag and i, for interactive session
   - ~~docker-compose -f src/unit_test_pyspark/docker-compose.yaml up~~ did not get i tto work 
-
-
- Using pytest-spark
------------------------
-
-
+  
 References
 ---------------
 - https://pypi.org/project/pytest-spark/

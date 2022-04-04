@@ -12,9 +12,11 @@ in sample_transform.
 def sample_transform(input_df: DataFrame, candy:str) -> DataFrame:
     inter_df = input_df.where(input_df['Candy'] == \
                               F.lit(candy)).groupBy('Company').agg(F.sum('SalesCount').alias('Sales'))
+    inter_df.show()
     output_df = inter_df.select('Company', 'Sales', \
                                 F.when(F.col('Sales') > 10, 'yes').otherwise('no').alias('indicator')).where(
                 F.col('indicator') == F.lit('yes'))
+    output_df.show()
     return output_df
 
 

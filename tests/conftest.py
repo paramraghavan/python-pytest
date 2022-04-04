@@ -163,3 +163,14 @@ def read_item_from_dynamodb():
 
     return _read_item_from_dynamodb
 
+import pytest
+from pyspark.sql import SparkSession
+
+@pytest.fixture(scope="session")
+def spark_session():
+    spark = SparkSession.builder.master("local[*]").appName("test").getOrCreate()
+    # INFO/WARN/DEBUG
+    #spark.sparkContext.setLogLevel("INFO")
+
+    yield spark
+    spark.stop()
