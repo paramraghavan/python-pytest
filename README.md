@@ -119,8 +119,8 @@ Docker to run your PySpark unit tests.
 
 References
 ---------------
-https://pypi.org/project/pytest-spark/
-https://www.confessionsofadataguy.com/introduction-to-unit-testing-with-pyspark/
+- https://pypi.org/project/pytest-spark/
+- https://www.confessionsofadataguy.com/introduction-to-unit-testing-with-pyspark/
 
 
 ### Notes
