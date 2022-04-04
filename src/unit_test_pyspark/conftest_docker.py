@@ -27,6 +27,9 @@ from pyspark.sql import SparkSession
 @pytest.fixture(scope="session")
 def spark_session():
     spark = SparkSession.builder.master("local[*]").appName("test").getOrCreate()
+    # INFO/WARN/DEBUG
+    spark.sparkContext.setLogLevel("INFO")
+
     yield spark
     spark.stop()
 

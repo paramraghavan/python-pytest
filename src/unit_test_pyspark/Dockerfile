@@ -16,13 +16,17 @@ COPY src/unit_test_pyspark/requirements_docker.txt /app/requirements.txt
 RUN mkdir -p /app/tests
 COPY src/unit_test_pyspark/conftest_docker.py /app/tests/conftest.py
 COPY src/unit_test_pyspark/tests/* /app/tests
+COPY src/unit_test_pyspark/data/ /app/data
 # Following fixed error --> ModuleNotFoundError: No module named 'setuptools_rust'
 RUN pip3 install --upgrade pip
 RUN pip3 install cython==0.29.21 numpy==1.18.5 &&  pip3 install pytest pyspark pandas==1.0.5 && pip3 install -r requirements.txt
 #RUN pip3 install cython==0.29.21 numpy==1.18.5 && pip3 install pytest pyspark pandas==1.0.5
-ENV PYSPARK_PYTHON=python3
+# following enables shell prompt
+#ENV PYSPARK_PYTHON=python3
+#python3  -m pytest -v tests/test_etl_transform.py, ues this to run inside docker interactive shell
+
 #ENTRYPOINT python3 -m pytest --no-header -v
-#ENTRYPOINT python3 -m pytest -v
+ENTRYPOINT python3 -m pytest -v
 
 # docker build -t spark-test -f src/unit_test_pyspark/Dockerfile .
 # docker run -it  spark-test --> t, the docker image tag and i, for interactive session
