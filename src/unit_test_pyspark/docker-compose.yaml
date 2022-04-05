@@ -1,9 +1,0 @@
-version: "3.9"
-services:
-  test:
-    environment:
-      - PYTHONPATH=/app/tests:/app/bigdata
-    image: "spark-test"
-    volumes:
-      - .:/app
-    command: python3 -m pytest

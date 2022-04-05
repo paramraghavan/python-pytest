@@ -20,7 +20,7 @@ def local_batch_stub(mocker, batch, batch_stub):
     with mocker.patch("aws.check_batchjob_status.lambda_function.get_batch", return_value=batch):
         yield batch_stub
 
-@pytest.mark.skip("WIP")
+#@pytest.mark.skip("WIP")
 def test_lambda_handler(local_batch_stub):
 
     input_event = \
