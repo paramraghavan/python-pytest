@@ -89,12 +89,11 @@ this is only option I know as of now how to implement.
   the test would fail because it depends on a specific API being called. This creates an unnecessary dependency on t
   he private API of the module, instead of testing the public API.
 
-  
+
 ## localstack
-A third option is localstack, which allows you to bring up an entire AWS cloud stack locally. To add 
+Another option is localstack, which allows you to bring up an entire AWS cloud stack locally. To add 
 
-
-## Unittest spark
+## Use Case - pyspark, pytest-spark
 When it comes to unit testing PySpark pipeline code, one good way is to encapsulate the critical ETL transforms of a 
 pySpark script inside a method/function, [see example](./src/bigdata/etl_transform.py). Install 
 packages - pytest-spark, pyspark. Also [setup local spark](https://github.com/paramraghavan/sparksql-awsglue/blob/main/help/sparksql-setup.md)
@@ -110,6 +109,7 @@ For Windows
 [pytest]
 spark_home = C:\Users\padma\spark\spark-sql\tools\spark-3.1.2-bin-hadoop2.7
 </pre>
+
 
 References
 ---------------
