@@ -35,7 +35,7 @@ def company_with_max_avg_sales(input_df: DataFrame, spark_session) -> float:
 
 from pyspark.sql.functions import explode
 
-def process_providers_json_by_group(spark_session, mailbox_providers_path ='/app/data/mailbox-providers/providers.json' , group='gmail')->DataFrame:
+def process_providers_json_by_group(spark_session, mailbox_providers_path, group)->DataFrame:
     mailbox_providers_df = spark_session.read.json(mailbox_providers_path)
     mailbox_providers_df.printSchema()
     mailbox_providers_df.show()
