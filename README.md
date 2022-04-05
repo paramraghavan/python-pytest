@@ -96,7 +96,7 @@ A third option is localstack, which allows you to bring up an entire AWS cloud s
 
 ## Unittest spark
 When it comes to unit testing PySpark pipeline code, one good way is to encapsulate the critical ETL transforms of a 
-PySpark script inside a method/function, [see example](./src/bigdata/etl_transform.py). Install 
+pySpark script inside a method/function, [see example](./src/bigdata/etl_transform.py). Install 
 packages - pytest-spark, pyspark. Also [setup local spark](https://github.com/paramraghavan/sparksql-awsglue/blob/main/help/sparksql-setup.md)
 - pip install pyspark 
 - pip install pytest-spark
