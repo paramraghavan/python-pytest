@@ -9,8 +9,8 @@ just declares, I'm going to need a resource, but it doesn't need to know where i
 rely on being given one before it's time to execute.
 
 Lets write test fixture addressbook, [see](tests/conftest.py), we decorate this new addressbook function with the pytest.fixture decorator, the pytest connects addressbook function and test method with addressbook argument together  at runtime. We define this test fixture addressbook and pass it as an argument in the [test method](tests/test_addressbook.py) and it will return Addressbook, instead of constructing it directly - by this I mean  Addressbook(tmpdir). This fixture mechanism does rely on you not making a typo when you write the name of the resource. If there is a typo Pytest will give a clear error message that it can't find the fixture for the resource addressbook. It will list all the fixtures that are available, there are
-quite a lot of fixtures on the list even though we've only defined one addresbook typo. See [src](/src) 
-and [tests](/tests)
+quite a lot of fixtures on the list even though we've only defined one addresbook typo. See [src](src) 
+and [tests](tests)
 
 # Notes
 - pytest --fixtures, lists all the available fixtures, default ones and the one that are in your package.
