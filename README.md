@@ -127,4 +127,4 @@ References
   virtualenv venv
   venv\Scripts\activate
 </pre>
-- [3 ways to test S3 in Python](https://www.sanjaysiddhanti.com/2020/04/08/s3testing/)
+- [3 ways to test S3 in Python](https://www.sanjaysiddhanti.com/2020/04/08/s3testing/) - moto, botocore stub and localstack
