@@ -7,8 +7,6 @@ be happening in some module, all we do here is patch that module, like in this c
 of the function - read_app_config_from_s3
 '''
 def test_lambda_handler(mocker):
-    mocker.patch.object(readConfigFromS3, 'read_app_config_from_s3')
-
     config = \
         {
             "dbInfo":
@@ -25,9 +23,9 @@ def test_lambda_handler(mocker):
                 "smtp": "smtp.yahoo.com"
             }
         }
+    mocker.patch.object(readConfigFromS3, 'read_app_config_from_s3', return_value = config)
 
-    readConfigFromS3.read_app_config_from_s3.return_value = config
-
-    result = readConfigFromS3.run()
+    s3_key = 'path/config'
+    result = readConfigFromS3.run(s3_key)
 
     assert result == config
