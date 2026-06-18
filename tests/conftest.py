@@ -1,10 +1,15 @@
 """Shared fixtures."""
 
+import os
+import sys
 import pytest
+from botocore.stub import Stubber
+from pyspark.sql import SparkSession
 
-# import sys
-# # This is needed so Python can find test_tools on the path.
-# sys.path.append('../..')
+import boto3
+
+# Add src directory to path so we can import addressbook
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 from addressbook import Addressbook
 
@@ -17,9 +22,6 @@ def addressbook(tmpdir):
 '''
 aws fixtures
 '''
-
-import os
-import boto3
 
 
 @pytest.fixture()
@@ -77,12 +79,10 @@ def create_dynamo_db_table():
     return _create_dynamo_db_table
 
 
-from moto import mock_s3, mock_batch, mock_dynamodb2
-
 '''
 with usage --> https://www.geeksforgeeks.org/with-statement-in-python/
 '''
-
+from moto import mock_aws
 @pytest.fixture
 def s3():
     """Pytest fixture to be used to perfom s3 action onto
@@ -90,7 +90,7 @@ def s3():
 
     Yields a fake boto3 batch client
     """
-    with mock_s3():
+    with mock_aws():
         s3 = boto3.client("s3")
         yield s3
 
@@ -102,7 +102,7 @@ def dynamodb():
 
     Yields a fake boto3 dynamodb client
     """
-    with mock_dynamodb2():
+    with mock_aws():
         dynamodb = boto3.resource("dynamodb", region_name='us-east-1')
         yield dynamodb
 
@@ -114,11 +114,11 @@ def batch():
 
     Yields a fake boto3 batch client
     """
-    with mock_batch():
+    with mock_aws():
         batch = boto3.client("batch")
         yield batch
 
-from botocore.stub import Stubber
+
 @pytest.fixture()
 def batch_stub(batch):
     boto3.setup_default_session(region_name="us-east-1")
@@ -163,8 +163,6 @@ def read_item_from_dynamodb():
 
     return _read_item_from_dynamodb
 
-import pytest
-from pyspark.sql import SparkSession
 
 @pytest.fixture(scope="session")
 def spark_session():

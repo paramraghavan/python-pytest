@@ -4,7 +4,7 @@ import os
 import ast
 import pytest
 from pytest_mock import mocker
-from moto import mock_dynamodb2, mock_s3
+from moto import mock_aws
 
 # marker used by code to identify if the module is being exercised by pytest
 os.environ["PYTEST_CURRENT_TEST"] = 'yes'

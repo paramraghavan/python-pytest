@@ -4,7 +4,7 @@ import os
 import ast
 import pytest
 from pytest_mock import mocker
-from moto import mock_dynamodb2, mock_s3
+from moto import mock_aws
 
 # marker used by code to identify if the module is being exercised by pytest
 os.environ["PYTEST_CURRENT_TEST"] = 'yes'
@@ -12,8 +12,7 @@ os.environ["PYTEST_CURRENT_TEST"] = 'yes'
 from aws.sns_trigger_lambda import lambda_function
 
 
-@mock_dynamodb2
-@mock_s3
+@mock_aws
 def test_sns_trigger_lambda(set_envvars, create_s3_bucket, s3_put_object_metadata, create_dynamo_db_table, read_item_from_dynamodb):
 
     required_envvars = ['PRODUCER_INTERFACE_TABLE', 'LifecycleEnv']
