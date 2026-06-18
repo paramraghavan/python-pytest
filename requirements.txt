@@ -17,7 +17,7 @@ mock==4.0.3
 moto==2.3.0
 numpy==1.22.3
 packaging==21.3
-pandas==1.4.1
+pandas==2.0.3
 pluggy==1.0.0
 py==1.11.0
 py4j==0.10.9.3
