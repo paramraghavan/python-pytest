@@ -5,4 +5,4 @@ from pyspark import sql
 def test_create_session(spark_session):
     assert isinstance(spark_session, sql.SparkSession) == True
     assert spark_session.sparkContext.appName == 'test'
-    assert spark_session.version == '3.1.2'
+    assert spark_session.version == '4.1.2'

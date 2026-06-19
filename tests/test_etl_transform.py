@@ -46,7 +46,7 @@ def test_company_with_max_avg_sales(spark_session):
 @pytest.mark.usefixtures("spark_session")
 # @pytest.mark.skip("WIP")
 def test_process_providers_json_by_group(spark_session):
-    sql_mailbox_providers_domain_df = process_providers_json_by_group(spark_session,  mailbox_providers_path ='data/mailbox-providers/providers.json' , group='gmail')
+    sql_mailbox_providers_domain_df = process_providers_json_by_group(spark_session,  mailbox_providers_path =r'tests/data/mailbox-providers/providers.json' , group='gmail')
     rows = sql_mailbox_providers_domain_df.select('domain').collect()
 
     final_list = []
